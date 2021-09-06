@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "service" {
   memory = 512
   network_mode = "awsvpc"
 
-  container_definitions = jsonencode(
+  container_definitions = jsonencode([
     {
       name      = "first"
       image     = "nginx"
@@ -25,6 +25,7 @@ resource "aws_ecs_task_definition" "service" {
         }
       ]
     }
+    ]
   )
 }
 
