@@ -35,6 +35,7 @@ resource "aws_ecs_service" "mongo" {
   cluster         = aws_ecs_cluster.main_cluster.id
   task_definition = aws_ecs_task_definition.service.arn
   desired_count   = 3
+  launch_type = "FARGATE"
 
   ordered_placement_strategy {
     type  = "binpack"
@@ -43,7 +44,7 @@ resource "aws_ecs_service" "mongo" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
-    container_name   = "first"
+    container_name   = "nginx"
     container_port   = 80
   }
 
