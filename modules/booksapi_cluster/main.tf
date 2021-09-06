@@ -37,10 +37,10 @@ resource "aws_ecs_service" "mongo" {
   desired_count   = 3
   launch_type = "FARGATE"
 
-  ordered_placement_strategy {
-    type  = "binpack"
-    field = "cpu"
-  }
+//  ordered_placement_strategy {
+//    type  = "binpack"
+//    field = "cpu"
+//  }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
