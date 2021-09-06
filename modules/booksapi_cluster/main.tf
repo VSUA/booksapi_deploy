@@ -4,7 +4,7 @@ resource "aws_ecs_cluster" "main_cluster" {
 
 resource "aws_ecs_task_definition" "service" {
   family = "service"
-  cpu = 128
+  cpu = 256
   memory = 512
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -13,7 +13,7 @@ resource "aws_ecs_task_definition" "service" {
     {
       name      = "first"
       image     = "nginx"
-      cpu       = 64
+      cpu       = 128
       memory    = 512
       essential = true
       environment = [
