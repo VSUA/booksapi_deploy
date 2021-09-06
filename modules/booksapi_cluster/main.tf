@@ -44,7 +44,7 @@ resource "aws_ecs_service" "mongo" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
-    container_name   = "nginx"
+    container_name   = "first"
     container_port   = 80
   }
 
