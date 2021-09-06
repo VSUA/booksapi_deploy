@@ -59,4 +59,9 @@ module "network" {
 
 module "booksapi" {
   source = "./modules/booksapi_cluster"
+  cluster_name = "cluster"
+  priv_subnets = module.network.aws_priv_subnet
+  pub_subnets = module.network.aws_pub_subnet
+  service_name = "random"
+  vpc_id = module.network.aws_vpc_id
 }
