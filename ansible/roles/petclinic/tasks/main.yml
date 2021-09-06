@@ -1,0 +1,29 @@
+---
+# tasks file for petclinic
+- name: Install a list of packages (suitable replacement for 2.11 loop deprecation warning)
+  yum:
+    name:
+      - git
+      - java-11-openjdk-devel
+      - maven
+    state: present
+
+- name: pull project
+  git:
+    repo: 'https://github.com/spring-projects/spring-petclinic.git'
+    dest: '{{ app_path }}'
+    clone: yes
+    update: yes
+
+- name: build project
+  shell: 'mvn -f /home/ec2-user/git package -Dspring-boot.run.profiles=h2'
+
+- name: Upload config file
+  copy:
+    src: ../../../../petclinic.service
+    dest: /etc/systemd/system
+
+- name: Run petclinic
+  systemd:
+    state: started
+    name: petclinic

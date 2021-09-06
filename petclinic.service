@@ -1,0 +1,11 @@
+[Unit]
+Description=petclinic
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/git
+ExecStart=mvn spring-boot:run
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
