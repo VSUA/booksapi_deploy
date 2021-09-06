@@ -47,7 +47,7 @@ resource "aws_ecs_service" "mongo" {
   }
 
   network_configuration {
-    subnets = var.priv_subnets
+    subnets = var.priv_subnets.*.id
     security_groups = [aws_security_group.http_sg.id]
   }
 }
@@ -85,7 +85,7 @@ resource "aws_lb" "nginx" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.http_sg.id]
-  subnets            = var.pub_subnets
+  subnets            = var.pub_subnets.*.id
 }
 
 resource "aws_lb_listener" "example" {
