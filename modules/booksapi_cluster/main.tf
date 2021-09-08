@@ -110,6 +110,9 @@ resource "aws_lb_target_group" "cluster-tg" {
   protocol = "HTTP"
   target_type = "ip"
   vpc_id   = var.vpc_id
+  health_check {
+    enabled = false
+  }
 }
 
 //.public.*.id
