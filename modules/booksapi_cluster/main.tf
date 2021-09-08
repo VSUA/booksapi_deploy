@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "service" {
       portMappings = [
         {
           containerPort = 5000
-          hostPort      = 80
+          hostPort      = 5000
         }
       ]
     }
@@ -47,7 +47,7 @@ resource "aws_ecs_service" "mongo" {
   load_balancer {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
     container_name   = "first"
-    container_port   = 80
+    container_port   = 5000
   }
 
   network_configuration {
@@ -61,8 +61,8 @@ resource "aws_security_group" "http_sg" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port        = 80
-    to_port          = 80
+    from_port        = 5000
+    to_port          = 5000
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
@@ -78,7 +78,7 @@ resource "aws_security_group" "http_sg" {
 
 resource "aws_lb_target_group" "cluster-tg" {
   name     = "${var.service_name}-lb-tg"
-  port     = 80
+  port     = 5000
   protocol = "HTTP"
   target_type = "ip"
   vpc_id   = var.vpc_id
@@ -100,5 +100,5 @@ resource "aws_lb_listener" "example" {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
     type             = "forward"
   }
-  port = 80
+  port = 5000
 }
