@@ -12,16 +12,18 @@ resource "aws_ecs_task_definition" "service" {
   container_definitions = jsonencode([
     {
       name      = "first"
-      image     = "nginx"
+      image     = "vsua/booksapi:latest"
       cpu       = 128
       memory    = 512
       essential = true
       environment = [
-        {name = "JUST_VAR", value = "VALUE"}
+        {name = "ACCESS_KEY", value = var.access_key},
+        {name = "SECRET_KEY", value = var.secret_key},
+        {name = "REGION_NAME", value = var.region_name}
       ]
       portMappings = [
         {
-          containerPort = 80
+          containerPort = 5000
           hostPort      = 80
         }
       ]

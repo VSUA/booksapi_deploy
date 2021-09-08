@@ -37,3 +37,9 @@ M
 modules/dynamodb/variables.tf,e\3\e3f8cf5edc33401aaddbf70d4c505fcc1b9e688a
 H
 modules/dynamodb/main.tf,f\c\fc6bb0900eb7914de83e51917b69f43a8840229e
+R
+"modules/booksapi_cluster/output.tf,b\5\b5f94a9286ac2a07d807ef1990d824cbaf275c0a
+U
+%modules/booksapi_cluster/variables.tf,5\9\59d092225f4f9d4cc6c1cd988e786687cc0b2c6f
+P
+ modules/booksapi_cluster/main.tf,a\6\a636bebb9c6b407fe972b2941acec32515961eac
