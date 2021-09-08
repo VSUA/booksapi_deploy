@@ -16,49 +16,46 @@ resource "aws_ecs_task_definition" "service" {
 
   container_definitions = jsonencode([
     {
-      name = "first"
-      image = "vsua/booksapi:latest"
-      cpu = 128
-      memory = 512
+      name      = "first"
+      image     = "vsua/booksapi:latest"
+      cpu       = 128
+      memory    = 512
       essential = true
       environment = [
-        {
-          name = "ACCESS_KEY",
-          value = var.access_key
+        {name = "ACCESS_KEY", value = var.access_key
         },
-        {
-          name = "SECRET_KEY",
-          value = var.secret_key
+        {name = "SECRET_KEY", value = var.secret_key
         },
-        {
-          name = "REGION_NAME",
-          value = var.region_name
+        {name = "REGION_NAME", value = var.region_name
         }
       ]
       portMappings = [
         {
           containerPort = 5000
-          hostPort = 5000
+          hostPort      = 5000
+        }
+      ]
+    },
+    {
+      name = "datadog-agent"
+      image = "datadog/agent:latest"
+      cpu       = 128
+      memory    = 512
+      environment = [
+        {
+          name = "DD_API_KEY",
+          value = var.dd_api_key
+        },
+        {
+          name = "ECS_FARGATE",
+          value = "true"
+        },
+        {
+          name = "DD_SITE",
+          value = "datadoghq.eu"
         }
       ]
     }
-//    },
-//    {
-//      name = "datadog-agent"
-//      image = "datadog/agent:latest"
-//      cpu       = 128
-//      memory    = 512
-//      environment = [
-//        {
-//          name = "DD_API_KEY",
-//          value = var.dd_api_key
-//        },
-//        {
-//          name = "ECS_FARGATE",
-//          value = "true"
-//        }
-//      ]
-//    }
     ]
   )
 }
