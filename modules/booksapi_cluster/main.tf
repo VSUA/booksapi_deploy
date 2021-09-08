@@ -5,7 +5,7 @@ resource "aws_ecs_cluster" "main_cluster" {
 resource "aws_ecs_task_definition" "service" {
   family = "service"
   cpu = 256
-  memory = 512
+  memory = 1024
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
 
@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "service" {
       name      = "first"
       image     = "vsua/booksapi:latest"
       cpu       = 128
-      memory    = 256
+      memory    = 512
       essential = true
       environment = [
         {name = "ACCESS_KEY", value = var.access_key
@@ -34,8 +34,8 @@ resource "aws_ecs_task_definition" "service" {
     {
       name = "datadog-agent"
       image = "datadog/agent:latest"
-      pu       = 128
-      memory    = 256
+      cpu       = 128
+      memory    = 512
       environment = [
         {
           name = "DD_API_KEY",
