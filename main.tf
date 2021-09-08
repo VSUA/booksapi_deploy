@@ -64,4 +64,7 @@ module "booksapi" {
   pub_subnets = module.network.aws_pub_subnet
   service_name = "random"
   vpc_id = module.network.aws_vpc_id
+  access_key = var.aws_access_key
+  region_name = var.aws_region
+  secret_key = var.aws_secret_key
 }
