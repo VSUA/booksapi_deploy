@@ -13,3 +13,5 @@ variable "access_key" {}
 variable "secret_key" {}
 
 variable "region_name" {}
+
+variable "dd_api_key" {}

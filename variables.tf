@@ -13,6 +13,11 @@ variable "aws_secret_key" {
   type = string
 }
 
+# TF_VAR_dd_api_key
+variable "dd_api_key" {
+  type = string
+}
+
 variable "service_name" {
   default = "nginx"
 }

@@ -67,4 +67,5 @@ module "booksapi" {
   access_key = var.aws_access_key
   region_name = var.aws_region
   secret_key = var.aws_secret_key
+  dd_api_key = var.dd_api_key
 }
