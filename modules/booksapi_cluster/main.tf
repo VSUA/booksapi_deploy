@@ -2,12 +2,17 @@ resource "aws_ecs_cluster" "main_cluster" {
   name = var.cluster_name
 }
 
+data "aws_iam_role" "example" {
+  name = "DatadogAWSIntegrationRole"
+}
+
 resource "aws_ecs_task_definition" "service" {
   family = "service"
   cpu = 256
   memory = 1024
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
+  execution_role_arn = data.aws_iam_role.example.arn
 
   container_definitions = jsonencode([
     {
