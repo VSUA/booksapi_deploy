@@ -31,8 +31,8 @@ resource "aws_ecs_task_definition" "service" {
       ]
       portMappings = [
         {
-          containerPort = 5000
-          hostPort      = 5000
+          containerPort = 4999
+          hostPort      = 4999
         }
       ]
     },
@@ -60,8 +60,8 @@ resource "aws_ecs_task_definition" "service" {
   )
 }
 
-resource "aws_ecs_service" "mongo" {
-  name            = "mongodb"
+resource "aws_ecs_service" "booksapi" {
+  name            = "booksapi"
   cluster         = aws_ecs_cluster.main_cluster.id
   task_definition = aws_ecs_task_definition.service.arn
   desired_count   = 3
@@ -75,7 +75,7 @@ resource "aws_ecs_service" "mongo" {
   load_balancer {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
     container_name   = "first"
-    container_port   = 5000
+    container_port   = 4999
   }
 
   network_configuration {
@@ -89,8 +89,8 @@ resource "aws_security_group" "http_sg" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port        = 5000
-    to_port          = 5000
+    from_port        = 4999
+    to_port          = 4999
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
@@ -106,7 +106,7 @@ resource "aws_security_group" "http_sg" {
 
 resource "aws_lb_target_group" "cluster-tg" {
   name     = "${var.service_name}-lb-tg"
-  port     = 5000
+  port     = 4999
   protocol = "HTTP"
   target_type = "ip"
   vpc_id   = var.vpc_id
@@ -128,5 +128,5 @@ resource "aws_lb_listener" "example" {
     target_group_arn = aws_lb_target_group.cluster-tg.arn
     type             = "forward"
   }
-  port = 5000
+  port = 4999
 }
