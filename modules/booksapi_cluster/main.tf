@@ -13,6 +13,7 @@ resource "aws_ecs_task_definition" "service" {
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn = data.aws_iam_role.example.arn
+  task_role_arn = data.aws_iam_role.example.arn
 
   container_definitions = jsonencode([
     {
