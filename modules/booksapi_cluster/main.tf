@@ -35,6 +35,14 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 4999
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group = "/ecs/booksapi-app",
+          awslogs-region = "eu-central-1",
+          awslogs-stream-prefix = "ecs"
+        }
+      }
     },
     {
       name = "datadog-agent"
@@ -55,6 +63,14 @@ resource "aws_ecs_task_definition" "service" {
           value = "datadoghq.eu"
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group = "/ecs/booksapi-app",
+          awslogs-region = "eu-central-1",
+          awslogs-stream-prefix = "ecs"
+        }
+      }
     }
     ]
   )
