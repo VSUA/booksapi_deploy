@@ -29,6 +29,14 @@ resource "aws_ecs_task_definition" "service" {
 //          "config-file-value": "/fluent-bit/configs/parse-json.conf",
           "enable-ecs-log-metadata": "true"
         }
+      },
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group = "/ecs/booksapi-app",
+          awslogs-region = "eu-central-1",
+          awslogs-stream-prefix = "ecs"
+        }
       }
     },
     {
