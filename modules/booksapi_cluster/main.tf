@@ -68,7 +68,7 @@ resource "aws_ecs_task_definition" "service" {
           "dd_source": "redis",
           "dd_tags": "project:fluentbit",
           "provider": "ecs",
-          "Host": "http-intake.logs.datadoghq.eu"
+          "Host": "http-intake.logs.datadoghq.eu/v1/input"
         }
       }
     },
