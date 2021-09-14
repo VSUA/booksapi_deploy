@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "service" {
   container_definitions = jsonencode([
     {
       essential = true,
-      image = "amazon/aws-for-fluent-bit:latest",
+      image = "amazon/aws-for-fluent-bit:stable",
       name = "log_router",
       cpu = 80,
       memory = 340,
