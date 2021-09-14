@@ -25,8 +25,8 @@ resource "aws_ecs_task_definition" "service" {
       firelensConfiguration = {
         "type": "fluentbit",
         "options": {
-          "config-file-type": "file",
-          "config-file-value": "/fluent-bit/configs/parse-json.conf",
+//          "config-file-type": "file",
+//          "config-file-value": "/fluent-bit/configs/parse-json.conf",
           "enable-ecs-log-metadata": "true"
         }
       }
@@ -68,7 +68,8 @@ resource "aws_ecs_task_definition" "service" {
           "dd_source": "redis",
           "dd_tags": "project:fluentbit",
           "provider": "ecs",
-          "Host": "http-intake.logs.datadoghq.eu/v1/input"
+          "Host": "http-intake.logs.datadoghq.eu",
+          "TLS": "on"
         }
       }
     },
