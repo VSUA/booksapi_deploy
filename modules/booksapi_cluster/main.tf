@@ -17,10 +17,25 @@ resource "aws_ecs_task_definition" "service" {
 
   container_definitions = jsonencode([
     {
+      essential = true,
+      image = "amazon/aws-for-fluent-bit:latest",
+      name = "log_router",
+      cpu = 80,
+      memory = 340,
+      firelensConfiguration = {
+        "type": "fluentbit",
+        "options": {
+          "config-file-type": "file",
+          "config-file-value": "/fluent-bit/configs/parse-json.conf",
+          "enable-ecs-log-metadata": "true"
+        }
+      }
+    },
+    {
       name      = "first"
       image     = "vsua/booksapi:latest"
-      cpu       = 128
-      memory    = 512
+      cpu       = 80
+      memory    = 340
       essential = true
       environment = [
         {name = "ACCESS_KEY", value = var.access_key
@@ -36,14 +51,6 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 4999
         }
       ]
-      firelensConfiguration = {
-        "type": "fluentbit",
-        "options": {
-          "config-file-type": "file",
-          "config-file-value": "/fluent-bit/configs/parse-json.conf",
-          "enable-ecs-log-metadata": "true"
-        }
-      }
 //      logConfiguration = {
 //        logDriver = "awslogs",
 //        options = {
@@ -68,8 +75,8 @@ resource "aws_ecs_task_definition" "service" {
     {
       name = "datadog-agent"
       image = "datadog/agent:latest"
-      cpu       = 128
-      memory    = 512
+      cpu       = 80
+      memory    = 340
       environment = [
         {
           name = "DD_API_KEY",
