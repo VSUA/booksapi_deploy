@@ -36,12 +36,32 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 4999
         }
       ]
+      firelensConfiguration = {
+        "type": "fluentbit",
+        "options": {
+          "config-file-type": "file",
+          "config-file-value": "/fluent-bit/configs/parse-json.conf",
+          "enable-ecs-log-metadata": "true"
+        }
+      }
+//      logConfiguration = {
+//        logDriver = "awslogs",
+//        options = {
+//          awslogs-group = "/ecs/booksapi-app",
+//          awslogs-region = "eu-central-1",
+//          awslogs-stream-prefix = "ecs"
+//        }
+//      }
       logConfiguration = {
-        logDriver = "awslogs",
-        options = {
-          awslogs-group = "/ecs/booksapi-app",
-          awslogs-region = "eu-central-1",
-          awslogs-stream-prefix = "ecs"
+        "logDriver": "awsfirelens",
+        "options": {
+          "Name": "datadog",
+          "apikey": var.dd_api_key,
+          "dd_service": "firelens-test",
+          "dd_source": "redis",
+          "dd_tags": "project:fluentbit",
+          "provider": "ecs",
+          "Host": "http-intake.logs.datadoghq.eu"
         }
       }
     },
